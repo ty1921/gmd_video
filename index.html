@@ -1,0 +1,617 @@
+<!-- 
+ *
+ * [GMD VIDEO PAGE]
+ * @author      <[ty1921@gmail.com]>
+ * @version     0.1
+ * @create      2019-4-24 10:45:59
+ * 
+ -->
+
+<!DOCTYPE html>
+
+<html lang="zh-cn" style="background-color:#FFFFFF;">
+
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<meta charset="UTF-8">
+
+	<title> GMD VIDEO </title>
+
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=no,maximum-scale=1.0" id="viewport">
+
+	<meta name="author" content="tyin@live.com">
+	
+	<link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+
+	<style type="text/css">
+		
+		html,body{
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			font-family: 'microsoft yahei';
+		}
+		
+		@font-face {
+		  font-family: 'iconfont';  /* project id 1162702 */
+		  src: url('//at.alicdn.com/t/font_1162702_o66gypyhbj.eot');
+		  src: url('//at.alicdn.com/t/font_1162702_o66gypyhbj.eot?#iefix') format('embedded-opentype'),
+		  url('//at.alicdn.com/t/font_1162702_o66gypyhbj.woff2') format('woff2'),
+		  url('//at.alicdn.com/t/font_1162702_o66gypyhbj.woff') format('woff'),
+		  url('//at.alicdn.com/t/font_1162702_o66gypyhbj.ttf') format('truetype'),
+		  url('//at.alicdn.com/t/font_1162702_o66gypyhbj.svg#iconfont') format('svg');
+		}
+
+		.iconfont{
+		    font-family:"iconfont" !important;
+		    font-size:16px;font-style:normal;
+		    -webkit-font-smoothing: antialiased;
+		    -webkit-text-stroke-width: 0.2px;
+		    -moz-osx-font-smoothing: grayscale;
+		}
+		
+		#video{
+			  position: relative;
+			  width: 100%;
+			  height: 0;
+			  padding-bottom: 75%;
+			}
+
+		#video iframe {
+		  position: absolute;
+		  width: 100%;
+		  height: 100%;
+		  left: 0;
+		  top: 0;
+		}
+
+
+		/*msg*/
+		.msg{
+			height: 100%;
+			margin-top: 10px;
+			padding: 10px 0  35px 0; 
+			border:0px solid black;
+			background-color: rgb(242,242,242);
+		}
+
+		.msg .msg_li{
+			margin-top: 25px;
+			position: relative;
+			width: 100%;
+			height: 100%;
+			/*border: 2px solid green;*/
+		}
+
+		.li_left{
+			float: left;
+            /*transform: translate(-50%,-50%);*/
+            width: 14%;
+            height: 100%;
+            /*border: 1px solid red;*/
+		}
+
+		.headicon{
+			display: block;
+			width: 39px;
+			height: 39px;
+			border-radius: 5px;
+		}
+
+
+		.li_right{
+			float: right;
+            /*transform: translate(-50%,-50%);*/
+            width: 85%;
+            height: 100%; 
+            /*margin-left: 5px;*/
+            /*border: 1px solid blue;*/
+            line-height: 22px;
+		}
+
+		/*置顶按钮*/
+		.top{
+			background-color: #CCCCCC;
+			color: #FFFFFF;
+			font-size: 11px;
+			margin-left: 5px;
+			padding: 2px 8px;
+			border-radius: 3px;
+			/*line-height: 120%;*/
+		}
+
+
+
+		.clearfix:befor, .clearfix:after{
+		    content:'';
+		    display:block;
+		}
+
+		.clearfix{
+		    clear:both;
+		}
+
+
+		#mask{
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #000000;
+			opacity: 0.6;
+			text-align: center;
+			padding-top: 40%;
+		}
+
+
+
+	</style>
+
+</head>
+
+<!-- BODY SECTION -------------------------------------------------------------------------------------->
+
+<body style="margin:auto;max-width:600px;border:0px solid blue; background-color:#FFFFFF;border: 0px solid blue;">
+
+<div class="container" style="position:relative;border:0px solid red;">
+	
+	<div class="row clearfix">
+
+		<div id="video" class="col-md-12 column" style="border:0px solid red;background-image: url(./game.jpg);background-size: 150%;">
+			
+		</div>
+	</div>
+
+	<!-- msg -->
+	<div class="row clearfix msg">
+
+		<div id="msg_ul" class="col-md-12 column" style="width: 100%;height: 100%;">
+
+			<!-- comment -->
+			
+
+
+		</div>
+	</div>
+
+	<!-- comment -->
+	<div class="row clearfix" style="margin: 15px 0;">
+		<div class="col-md-12 column" style="border:0px solid green;text-align: right;">
+			<textarea id="msg" class="form-control" placeholder="请输入评论..." rows="5"></textarea>
+			<button class="btn btn-danger" style="margin:auto;margin-top: 10px;" onclick="fnComment();"> 提交 </button>
+		</div>
+	</div>
+	
+	<!-- tips -->
+	<div id="tips" class="row clearfix" style="display: none;position: fixed;left: 0;top: 0;width: 100%;">
+		<div class="col-md-12 column">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true" onclick="$('#tips').hide();">×</button>
+				<div id="tips_text">加载中，请稍候...</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- mask -->
+	<div id="mask">
+		<img src="./loading.gif">
+	</div>
+
+	
+</div>
+
+
+
+
+
+
+<!-- JS SECTION -------------------------------------------------------------------------------------->
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+
+
+<script type="text/javascript">
+
+//comm config ----------------------------------------------
+var host 	  = 'http://192.168.15.251/';
+
+var video_id  = 0;
+
+//get request parameter
+var region 	  = fnGet( 'region' );
+
+var level 	  = fnGet( 'level' );
+
+var difficult = fnGet( 'difficult' );
+
+var uid 	  = fnGet( 'uid' );
+
+var nickname  = fnGet( 'nickname' );
+
+var icon 	  = fnGet( 'icon' );
+
+
+//when document ready
+$(function(){
+
+	//1 get request parameter -----------------------------------
+	var gmd_user = window.localStorage.getItem('gmd_user') || '';
+
+	if( gmd_user != 1 )
+	{
+		//register
+		if( region && level && difficult && uid )
+		{
+			fnReg()
+		}
+	}
+
+	//2 list query api -----------------------------------
+	fnGetVideo();
+
+	
+});
+
+
+
+
+//---------------------------------------------------------------
+//function section ----------------------------------------------
+//---------------------------------------------------------------
+
+/**
+ * [fnReg new user register]
+ * @return bool
+ */
+function fnReg()
+{
+	$.ajax({
+		url: host + "gmd/f_api/comment_user.php",
+		data:{
+			'action':'register',
+			'game_user_id':uid,
+			'nickname': nickname,
+			'head_img': icon
+		},
+		type: 'POST',
+		dataType : "json",
+		success: function(res)
+		{	
+			if( res.code == 1 )
+			{
+				window.localStorage.setItem('gmd_user', 1);
+			}
+			else
+			{
+				console.log( res );
+
+				fnTips( '用户注册失败，请稍后重试！');
+			}
+		},
+		 error: function(XMLHttpRequest, textStatus, errorThrown) {
+		    console.log(XMLHttpRequest);
+			console.log(errorThrown);
+			console.log(textStatus);
+			fnTips( '网络连接失败，请稍后重试！');
+		}
+	});
+}
+
+
+/**
+ * [fnGetVideo init page view]
+ * @return bool
+ */
+function fnGetVideo()
+{
+	$.ajax({
+		url: host + "gmd/f_api/comment.php",
+		data:{
+			'action':'c_list',
+			'uId':uid,
+			'region': region,
+			'checkpoint': level,
+			'difficult': difficult
+		},
+		type: 'POST',
+		dataType : "json",
+		success: function(res)
+		{	
+			$('#mask').hide();
+
+			if( res.code == 1 )
+			{
+				if( res.data.html && res.data.html.indexOf("iframe") != -1 )
+				{
+					$('#video').html( res.data.html );
+				}
+
+				video_id = res.data.video_id;
+
+				//comment arr
+				var len = res.data.comment.length;
+
+				var html_str = '';
+
+				var tops 	 = '';
+
+				var likes	 = '';
+
+				var reply	 = '';
+
+				for( i=0;i<len;i++)
+				{
+					//headicon fix
+					if( !res.data.comment[i].head_img )
+					{
+						res.data.comment[i].head_img = './1.jpg';
+					}
+
+					//top?
+					if( res.data.comment[i].roof )
+					{
+						tops = "<span class='top'>置顶</span>";
+					}
+					else
+					{
+						tops = ''
+					}
+
+					//likes?
+					if( res.data.comment[i].zan == 1 )
+					{
+						likes = "<i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'>&#xe600;</i> <span id='no_2'>" 
+								 + res.data.comment[i].step + "</span>\
+								 &nbsp;&nbsp;\
+							 	 <i class='iconfont'>&#xe601;</i> <span id='no_1'>" + res.data.comment[i].like + "</span>" ;
+					}
+					else if( res.data.comment[i].zan == 2 )
+					{
+						likes = "<i class='iconfont'>&#xe603;</i> <span id='no_2'>" + res.data.comment[i].step + "</span>\
+								 &nbsp;&nbsp;\
+							 	 <i class='iconfont' onclick='fnlike( 1, "+res.data.comment[i].id+" );'>&#xe602;</i> <span id='no_1'>" 
+							 	 + res.data.comment[i].like + "</span>" ;
+					}
+					else
+					{
+						likes = "<i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'>&#xe600;</i> <span id='no_2'>" 
+								 + res.data.comment[i].step + "</span>\
+								 &nbsp;&nbsp;\
+							 	 <i class='iconfont' onclick='fnlike( 1, "+res.data.comment[i].id+" );'>&#xe602;</i> <span id='no_1'>" 
+							 	 + res.data.comment[i].like + "</span>" ;
+					}
+
+					
+
+					// console.log( likes )
+
+					//reply?
+					if( res.data.comment[i].data[0] )
+					{
+						reply = "<div class='form-inline' style='word-break: break-all;color: #BBBBBB;font-weight: 600;font-size: 13px;'>\
+						 			<span style='display: block;width: 3px;height: 100%;background-color: #22b322;margin-right: 3px;'>&nbsp;</span> 管理员\
+						 		 </div>\
+								 <div style='word-break: break-all;'>"+res.data.comment[i].data[0].content+"</div>";
+					}
+					else
+					{
+						reply = '';
+					}
+					
+
+
+
+					html_str += " <div class='msg_li'>\
+									<div class='li_left'> 	<img src='"+res.data.comment[i].head_img+"' class='headicon'> </div>\
+									<div class='li_right'>\
+										<!-- line 1 -->\
+										<div style='position: relative;'>\
+											<a style='color:grey; font-size: 15px;' href='#'>"+res.data.comment[i].nickname+"</a>"
+											+ tops + " \
+											<div style='display: block;position: absolute;top: 0;right: 0;'>"
+											+ likes + "</div>\
+										</div>\
+										<!-- line 2 -->\
+										<div style='word-break: break-all;'>"+res.data.comment[i].content+"</div>\
+								\
+										<!-- line 3&4 -->\
+										"+ reply +" \
+								\
+									</div>\
+								\
+									<div class='clearfix'></div>\
+								</div>";
+
+				}
+
+				$('#msg_ul').html( html_str );
+			}
+			else
+			{
+				console.log( res );
+
+				fnTips( '视频请求失败，请稍后重试！');
+			}
+		},
+		 error: function(XMLHttpRequest, textStatus, errorThrown) {
+		    console.log(XMLHttpRequest);
+			console.log(errorThrown);
+			console.log(textStatus);
+			fnTips( '网络连接失败，请稍后重试！');
+		}
+	});
+}
+
+
+/**
+ * [fnlike like or unlike]
+ * @param  {[type]} type [like type]
+ * @param  {[type]} c_id [comment id]
+ * @return bool    
+ */
+function fnlike( type, c_id )
+{
+	console.log( type, c_id );
+
+	var action;
+
+	if( type == 1 )
+	{
+		action = 'c_like';
+	}
+	else
+	{
+		action = 'c_step';
+	}
+
+	$.ajax({
+		url: host + "gmd/f_api/comment.php",
+		data:{
+			'action': action,
+			'uId':uid,
+			'c_id': c_id
+		},
+		type: 'POST',
+		dataType : "json",
+		success: function(res)
+		{	
+			if( res.code == 1 )
+			{
+				if( type == 1 )
+				{
+					$('#no_1').html( parseInt($('#no_1').html()) + 1 );
+					$('#no_2').html( parseInt($('#no_2').html()) - 1 );
+				}
+				else
+				{
+					$('#no_2').html( parseInt($('#no_2').html()) + 1 );
+					$('#no_1').html( parseInt($('#no_1').html()) - 1 );
+				}
+			}
+			else
+			{
+				console.log( res );
+
+				fnTips( '请求失败，请稍后重试！');
+			}
+		},
+		 error: function(XMLHttpRequest, textStatus, errorThrown) {
+		    console.log(XMLHttpRequest);
+			console.log(errorThrown);
+			console.log(textStatus);
+			fnTips( '网络连接失败，请稍后重试！');
+		}
+	});
+
+}
+
+
+/**
+ * [fnComment submit comment]
+ * @return bool
+ */
+function fnComment()
+{
+	console.log( fnComment );
+
+	var msg = $('#msg').val();
+
+	if( msg.length < 7 )
+	{
+		alert('太短啦，请留言7个字以上哦！');
+
+		return;
+	}
+
+
+	$.ajax({
+		url: host + "gmd/f_api/comment.php",
+		data:{
+			'action': 'comment',
+			'uId':uid,
+			'video_id': video_id,
+			'content': msg
+		},
+		type: 'POST',
+		dataType : "json",
+		success: function(res)
+		{	
+			if( res.code == 1 )
+			{
+				fnTips( '留言成功，请等待管理员审核！');
+			}
+			else
+			{
+				console.log( res );
+
+				$('#tips').show();
+						
+				$('#tips_text').html( '留言失败，请稍后重试！');
+			}
+		},
+		 error: function(XMLHttpRequest, textStatus, errorThrown) {
+		    console.log(XMLHttpRequest);
+			console.log(errorThrown);
+			console.log(textStatus);
+			fnTips( '网络连接失败，请稍后重试！');
+		}
+	});
+
+}
+
+
+
+/**
+ * [fnGet get request parameter]
+ * @param  {[char]} name [GET key]
+ * @return {[char]}      [GET key's value]
+ */
+function fnGet(name) { 
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+    var r = window.location.search.substr(1).match(reg); 
+    if (r != null) return unescape(r[2]); 
+    return null; 
+} 
+
+
+
+/**
+ * [err info show]
+ * @param  {[type]} msg 
+ * @return bool
+ */
+function fnTips( msg ) 
+{ 
+	$('#tips').toggle();
+
+    $('#tips_text').html( "<b>" + msg + "</b><br>关闭（<span id='cnt' style='color:grey;'>5</span>）" );
+
+    var num = 4;
+
+    var timer = setInterval(function() {
+
+        $('#cnt').html( num );
+
+        if ( num <= 0 ) 
+        {
+        	$('#tips').toggle();
+
+        	window.clearInterval( timer );
+        }
+
+        num--;
+
+    }, 1000);
+} 
+
+
+</script>
+
+
+
+</body>
+</html>
