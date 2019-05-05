@@ -33,30 +33,12 @@
 			margin: 0;
 			font-family: 'microsoft yahei';
 		}
-		
-		@font-face {
-		  font-family: 'iconfont';  /* project id 1162702 */
-		  src: url('//at.alicdn.com/t/font_1162702_o66gypyhbj.eot');
-		  src: url('//at.alicdn.com/t/font_1162702_o66gypyhbj.eot?#iefix') format('embedded-opentype'),
-		  url('//at.alicdn.com/t/font_1162702_o66gypyhbj.woff2') format('woff2'),
-		  url('//at.alicdn.com/t/font_1162702_o66gypyhbj.woff') format('woff'),
-		  url('//at.alicdn.com/t/font_1162702_o66gypyhbj.ttf') format('truetype'),
-		  url('//at.alicdn.com/t/font_1162702_o66gypyhbj.svg#iconfont') format('svg');
-		}
-
-		.iconfont{
-		    font-family:"iconfont" !important;
-		    font-size:16px;font-style:normal;
-		    -webkit-font-smoothing: antialiased;
-		    -webkit-text-stroke-width: 0.2px;
-		    -moz-osx-font-smoothing: grayscale;
-		}
-		
+				
 		#video{
 			  position: relative;
 			  width: 100%;
 			  height: 0;
-			  padding-bottom: 75%;
+			  padding-bottom: 56.25%;
 			}
 
 		#video iframe {
@@ -146,6 +128,7 @@
 			padding-top: 40%;
 		}
 
+		/*likes*/
 
 
 	</style>
@@ -159,9 +142,12 @@
 <div class="container" style="position:relative;border:0px solid red;">
 	
 	<div class="row clearfix">
+		
+		<!-- background-image: url(./images/game.jpg);background-size: 150%; -->
 
-		<div id="video" class="col-md-12 column" style="border:0px solid red;background-image: url(./game.jpg);background-size: 150%;">
-			
+		<div id="video" class="col-md-12 column" style="border:0px solid red;">
+			<!-- <iframe src="//player.bilibili.com/player.html?aid=27284475&cid=47042097&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe> -->
+			<div style="width: 100%;height:50px;padding-top: 30%;text-align: center;">loading...</div>
 		</div>
 	</div>
 
@@ -171,8 +157,35 @@
 		<div id="msg_ul" class="col-md-12 column" style="width: 100%;height: 100%;">
 
 			<!-- comment -->
-			
-
+			    <div class="msg_li"> 
+			     <div class="li_left"> 
+			      <img src="1" class="headicon" /> 
+			     </div> 
+			     <div class="li_right"> 
+			      <!-- line 1 --> 
+			      <div style="position: relative;"> 
+			       <a style="color:grey; font-size: 15px;" href="#">a</a> 
+			       <div style="display: block;position: absolute;top: 0;right: 0;">
+			        <i class="iconfont" onclick="fnlike( 2, 36 );"></i> 
+			        <span id="no2_36">0</span> &nbsp;&nbsp; 
+			        <i class="iconfont" onclick="fnlike( 1, 36 );"></i> 
+			        <span id="no1_36">0</span>
+			       </div> 
+			      </div> 
+			      <!-- line 2 --> 
+			      <div style="word-break: break-all;">
+			       xxxxxxxxxxxxxxx
+			      </div> 
+			      <!-- line 3&4 --> 
+			      <div class="form-inline" style="word-break: break-all;color: #BBBBBB;font-weight: 600;font-size: 13px;"> 
+			       <span style="display: block;width: 3px;height: 100%;background-color: #22b322;margin-right: 3px;">&nbsp;</span> 作者 
+			      </div> 
+			      <div style="word-break: break-all;">
+			       ASSVGA
+			      </div> 
+			     </div> 
+			     <div class="clearfix"></div> 
+			    </div>
 
 		</div>
 	</div>
@@ -180,13 +193,17 @@
 	<!-- comment -->
 	<div class="row clearfix" style="margin: 15px 0;">
 		<div class="col-md-12 column" style="border:0px solid green;text-align: right;">
-			<textarea id="msg" class="form-control" placeholder="请输入评论..." rows="5"></textarea>
+			<textarea id="msg" class="form-control" placeholder="请输入评论..." rows="3"></textarea>
 			<button class="btn btn-danger" style="margin:auto;margin-top: 10px;" onclick="fnComment();"> 提交 </button>
 		</div>
 	</div>
 	
-	<!-- tips -->
-	<div id="tips" class="row clearfix" style="display: none;position: fixed;left: 0;top: 0;width: 100%;">
+
+</div>
+
+
+<!-- tips -->
+	<div id="tips" class="clearfix" style="display:none ;position: fixed;left: 0;top: 0;width: 100%;">
 		<div class="col-md-12 column">
 			<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true" onclick="$('#tips').hide();">×</button>
@@ -195,18 +212,11 @@
 		</div>
 	</div>
 
-	<!-- mask -->
+
+<!-- mask -->
 	<div id="mask">
-		<img src="./loading.gif">
+		<img src="./images/loading.gif">
 	</div>
-
-	
-</div>
-
-
-
-
-
 
 <!-- JS SECTION -------------------------------------------------------------------------------------->
 
@@ -238,10 +248,10 @@ var icon 	  = fnGet( 'icon' );
 //when document ready
 $(function(){
 
-	//1 get request parameter -----------------------------------
+	//1 get localStorage parameter ------------------------------
 	var gmd_user = window.localStorage.getItem('gmd_user') || '';
 
-	if( gmd_user != 1 )
+	if( gmd_user !== 1 )
 	{
 		//register
 		if( region && level && difficult && uid )
@@ -251,7 +261,7 @@ $(function(){
 	}
 
 	//2 list query api -----------------------------------
-	fnGetVideo();
+	//fnGetVideo();
 
 	
 });
@@ -364,36 +374,36 @@ function fnGetVideo()
 					//likes?
 					if( res.data.comment[i].zan == 1 )
 					{
-						likes = "<i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'>&#xe600;</i> <span id='no_2'>" 
+						likes = "<i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'>&#xe600;</i> <span id='no2_"+res.data.comment[i].id+"'>" 
 								 + res.data.comment[i].step + "</span>\
 								 &nbsp;&nbsp;\
-							 	 <i class='iconfont'>&#xe601;</i> <span id='no_1'>" + res.data.comment[i].like + "</span>" ;
+							 	 <i class='iconfont'>&#xe601;</i> <span id='no1_"+res.data.comment[i].id+"'>" + res.data.comment[i].like + "</span>" ;
 					}
 					else if( res.data.comment[i].zan == 2 )
 					{
-						likes = "<i class='iconfont'>&#xe603;</i> <span id='no_2'>" + res.data.comment[i].step + "</span>\
+						likes = "<i class='iconfont'>&#xe603;</i> <span id='no2_"+res.data.comment[i].id+"'>" + res.data.comment[i].step + "</span>\
 								 &nbsp;&nbsp;\
-							 	 <i class='iconfont' onclick='fnlike( 1, "+res.data.comment[i].id+" );'>&#xe602;</i> <span id='no_1'>" 
+							 	 <i class='iconfont' onclick='fnlike( 1, "+res.data.comment[i].id+" );'>&#xe602;</i> <span id='no1_"+res.data.comment[i].id+"'>" 
 							 	 + res.data.comment[i].like + "</span>" ;
 					}
 					else
 					{
-						likes = "<i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'>&#xe600;</i> <span id='no_2'>" 
+						likes = "<i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'>&#xe600;</i> <span id='no2_"+res.data.comment[i].id+"'>" 
 								 + res.data.comment[i].step + "</span>\
 								 &nbsp;&nbsp;\
-							 	 <i class='iconfont' onclick='fnlike( 1, "+res.data.comment[i].id+" );'>&#xe602;</i> <span id='no_1'>" 
+							 	 <i class='iconfont' onclick='fnlike( 1, "+res.data.comment[i].id+" );'>&#xe602;</i> <span id='no1_"+res.data.comment[i].id+"'>" 
 							 	 + res.data.comment[i].like + "</span>" ;
 					}
 
 					
 
-					// console.log( likes )
+					//console.log( likes )
 
 					//reply?
 					if( res.data.comment[i].data[0] )
 					{
 						reply = "<div class='form-inline' style='word-break: break-all;color: #BBBBBB;font-weight: 600;font-size: 13px;'>\
-						 			<span style='display: block;width: 3px;height: 100%;background-color: #22b322;margin-right: 3px;'>&nbsp;</span> 管理员\
+						 			<span style='display: block;width: 3px;height: 100%;background-color: #22b322;margin-right: 3px;'>&nbsp;</span> 作者\
 						 		 </div>\
 								 <div style='word-break: break-all;'>"+res.data.comment[i].data[0].content+"</div>";
 					}
@@ -483,13 +493,21 @@ function fnlike( type, c_id )
 			{
 				if( type == 1 )
 				{
-					$('#no_1').html( parseInt($('#no_1').html()) + 1 );
-					$('#no_2').html( parseInt($('#no_2').html()) - 1 );
+					$('#no1_' + c_id ).html( parseInt($('#no1_' + c_id).html()) + 1 );
+
+					if( parseInt($('#no2_' + c_id).html()) > 0 )
+					{
+						$('#no2_' + c_id ).html( parseInt($('#no2_' + c_id).html()) - 1 );
+					}
 				}
 				else
 				{
-					$('#no_2').html( parseInt($('#no_2').html()) + 1 );
-					$('#no_1').html( parseInt($('#no_1').html()) - 1 );
+					$('#no2_' + c_id ).html( parseInt($('#no2_' + c_id).html()) + 1 );
+
+					if( parseInt($('#no1_' + c_id).html()) > 0 )
+					{
+						$('#no1_' + c_id ).html( parseInt($('#no1_' + c_id).html()) - 1 );
+					}
 				}
 			}
 			else
@@ -520,9 +538,9 @@ function fnComment()
 
 	var msg = $('#msg').val();
 
-	if( msg.length < 7 )
+	if( msg.length < 3 )
 	{
-		alert('太短啦，请留言7个字以上哦！');
+		alert('太短啦，请留言3个字以上哦！');
 
 		return;
 	}
