@@ -128,6 +128,11 @@
 			padding-top: 40%;
 		}
 
+		.li_right img{
+			width: 20px;
+			height: 20px;
+		}
+
 		/*likes*/
 
 
@@ -156,36 +161,7 @@
 
 		<div id="msg_ul" class="col-md-12 column" style="width: 100%;height: 100%;">
 
-			<!-- comment -->
-			    <div class="msg_li"> 
-			     <div class="li_left"> 
-			      <img src="1" class="headicon" /> 
-			     </div> 
-			     <div class="li_right"> 
-			      <!-- line 1 --> 
-			      <div style="position: relative;"> 
-			       <a style="color:grey; font-size: 15px;" href="#">a</a> 
-			       <div style="display: block;position: absolute;top: 0;right: 0;">
-			        <i class="iconfont" onclick="fnlike( 2, 36 );"></i> 
-			        <span id="no2_36">0</span> &nbsp;&nbsp; 
-			        <i class="iconfont" onclick="fnlike( 1, 36 );"></i> 
-			        <span id="no1_36">0</span>
-			       </div> 
-			      </div> 
-			      <!-- line 2 --> 
-			      <div style="word-break: break-all;">
-			       xxxxxxxxxxxxxxx
-			      </div> 
-			      <!-- line 3&4 --> 
-			      <div class="form-inline" style="word-break: break-all;color: #BBBBBB;font-weight: 600;font-size: 13px;"> 
-			       <span style="display: block;width: 3px;height: 100%;background-color: #22b322;margin-right: 3px;">&nbsp;</span> 作者 
-			      </div> 
-			      <div style="word-break: break-all;">
-			       ASSVGA
-			      </div> 
-			     </div> 
-			     <div class="clearfix"></div> 
-			    </div>
+			
 
 		</div>
 	</div>
@@ -261,7 +237,7 @@ $(function(){
 	}
 
 	//2 list query api -----------------------------------
-	//fnGetVideo();
+	fnGetVideo();
 
 	
 });
@@ -371,29 +347,39 @@ function fnGetVideo()
 						tops = ''
 					}
 
-					//likes?
-					if( res.data.comment[i].zan == 1 )
+					//likes? zan = 0none 1like 2dislike
+					if( res.data.comment[i].zan == 0 )
 					{
-						likes = "<i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'>&#xe600;</i> <span id='no2_"+res.data.comment[i].id+"'>" 
+						likes = "<i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'> <img src='./images/uz0.png' /> </i> <span id='no2_"+res.data.comment[i].id+"'>" 
 								 + res.data.comment[i].step + "</span>\
 								 &nbsp;&nbsp;\
-							 	 <i class='iconfont'>&#xe601;</i> <span id='no1_"+res.data.comment[i].id+"'>" + res.data.comment[i].like + "</span>" ;
+							 	 <i class='iconfont'> <img src='./images/uz1.png' /> </i> <span id='no1_"+res.data.comment[i].id+"'>" + res.data.comment[i].like + "</span>" ;
+					}
+					else if( res.data.comment[i].zan == 1 )
+					{
+						likes = "<i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'> <img src='./images/uz0.png' /> </i> <span id='no2_"+res.data.comment[i].id+"'>" 
+								 + res.data.comment[i].step + "</span>\
+								 &nbsp;&nbsp;\
+							 	 <i class='iconfont'> <img src='./images/z1.png' /> </i> <span id='no1_"+res.data.comment[i].id+"'>" + res.data.comment[i].like + "</span>" ;
 					}
 					else if( res.data.comment[i].zan == 2 )
 					{
-						likes = "<i class='iconfont'>&#xe603;</i> <span id='no2_"+res.data.comment[i].id+"'>" + res.data.comment[i].step + "</span>\
+						likes = "<i class='iconfont'> <img src='./images/z0.png' /> </i> <span id='no2_"+res.data.comment[i].id+"'>" + res.data.comment[i].step + "</span>\
 								 &nbsp;&nbsp;\
-							 	 <i class='iconfont' onclick='fnlike( 1, "+res.data.comment[i].id+" );'>&#xe602;</i> <span id='no1_"+res.data.comment[i].id+"'>" 
+							 	 <i class='iconfont' onclick='fnlike( 1, "+res.data.comment[i].id+" );'> <img src='./images/uz1.png' /> </i> <span id='no1_"+res.data.comment[i].id+"'>" 
 							 	 + res.data.comment[i].like + "</span>" ;
 					}
 					else
 					{
-						likes = "<i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'>&#xe600;</i> <span id='no2_"+res.data.comment[i].id+"'>" 
+						likes = "<i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'> <img src='./images/z0.png' /> </i> <span id='no2_"+res.data.comment[i].id+"'>" 
 								 + res.data.comment[i].step + "</span>\
 								 &nbsp;&nbsp;\
-							 	 <i class='iconfont' onclick='fnlike( 1, "+res.data.comment[i].id+" );'>&#xe602;</i> <span id='no1_"+res.data.comment[i].id+"'>" 
+							 	 <i class='iconfont' onclick='fnlike( 1, "+res.data.comment[i].id+" );'> <img src='./images/z1.png' /> </i> <span id='no1_"+res.data.comment[i].id+"'>" 
 							 	 + res.data.comment[i].like + "</span>" ;
 					}
+
+
+					likes = "";
 
 					
 
