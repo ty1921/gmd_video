@@ -374,12 +374,16 @@ function fnGetVideo()
 						likes = "<i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'> <img src='./images/z0.png' /> </i> <span id='no2_"+res.data.comment[i].id+"'>" 
 								 + res.data.comment[i].step + "</span>\
 								 &nbsp;&nbsp;\
-							 	 <i class='iconfont' onclick='fnlike( 1, "+res.data.comment[i].id+" );'> <img src='./images/z1.png' /> </i> <span id='no1_"+res.data.comment[i].id+"'>" 
+							 	 <i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'> <img src='./images/z1.png' /> </i> <span id='no1_"+res.data.comment[i].id+"'>" 
 							 	 + res.data.comment[i].like + "</span>" ;
 					}
 
 
-					likes = "";
+					likes = "<i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'> <img src='./images/z0.png' /> </i> <span id='no2_"+res.data.comment[i].id+"'>" 
+							 + res.data.comment[i].step + "</span>\
+							 &nbsp;&nbsp;\
+						 	 <i class='iconfont' onclick='fnlike( 1, "+res.data.comment[i].id+" );'> <img src='./images/z1.png' /> </i> <span id='no1_"+res.data.comment[i].id+"'>" 
+						 	 + res.data.comment[i].like + "</span>" ;
 
 					
 
