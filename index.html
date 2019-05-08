@@ -9,13 +9,16 @@
 
 <!DOCTYPE html>
 
-<html lang="zh-cn" style="background-color:#FFFFFF;">
+<html lang="zh-cn">
 
 <head>
+	
+	<meta charset='utf-8' />
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-	<meta charset="UTF-8">
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+
 
 	<title> GMD VIDEO </title>
 
@@ -77,9 +80,18 @@
 
 		.headicon{
 			display: block;
-			width: 39px;
-			height: 39px;
+			width: 41px;
+			height: 41px;
 			border-radius: 5px;
+		}
+
+		.frameicon{
+			display: block;
+			width: 51px;
+			height: 51px;
+			position: absolute;
+		    top: -5px;
+		    left: -5px;
 		}
 
 
@@ -220,6 +232,8 @@ var nickname  = fnGet( 'nickname' );
 
 var icon 	  = fnGet( 'icon' );
 
+var frame_icon = fnGet( 'frame_icon' );
+
 
 //when document ready
 $(function(){
@@ -261,7 +275,8 @@ function fnReg()
 			'action':'register',
 			'game_user_id':uid,
 			'nickname': nickname,
-			'head_img': icon
+			'head_img': icon,
+			'frame_icon': frame_icon
 		},
 		type: 'POST',
 		dataType : "json",
@@ -329,13 +344,30 @@ function fnGetVideo()
 
 				var reply	 = '';
 
+				// var 
+
 				for( i=0;i<len;i++)
 				{
-					//headicon fix
+					//head icon fix
 					if( !res.data.comment[i].head_img )
 					{
-						res.data.comment[i].head_img = './1.jpg';
+						res.data.comment[i].head_img = './images/face/head_icon_14001.png';
 					}
+					else
+					{
+						res.data.comment[i].head_img = './images/face/head_icon_'+res.data.comment[i].head_img+'.png';
+					}
+
+					//frame icon fix
+					if( !res.data.comment[i].frame_icon )
+					{
+						res.data.comment[i].frame_icon = './images/face/frame_icon_15001.png';
+					}
+					else
+					{
+						res.data.comment[i].frame_icon = './images/face/frame_icon_'+res.data.comment[i].frame_icon+'.png';
+					}
+
 
 					//top?
 					if( res.data.comment[i].roof )
@@ -406,7 +438,10 @@ function fnGetVideo()
 
 
 					html_str += " <div class='msg_li'>\
-									<div class='li_left'> 	<img src='"+res.data.comment[i].head_img+"' class='headicon'> </div>\
+									<div class='li_left'> \
+										<img src='"+res.data.comment[i].head_img+"' class='headicon'> \
+										<img src='"+res.data.comment[i].frame_icon+"' class='frameicon'> \
+									</div>\
 									<div class='li_right'>\
 										<!-- line 1 -->\
 										<div style='position: relative;'>\
@@ -579,11 +614,10 @@ function fnComment()
  * @return {[char]}      [GET key's value]
  */
 function fnGet(name) { 
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
-    var r = window.location.search.substr(1).match(reg); 
-    if (r != null) return unescape(r[2]); 
-    return null; 
-} 
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  decodeURI(r[2]); return null;
+}
 
 
 
