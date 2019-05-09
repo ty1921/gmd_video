@@ -80,8 +80,8 @@
 
 		.headicon{
 			display: block;
-			width: 41px;
-			height: 41px;
+			width: 45px;
+			height: 43px;
 			border-radius: 5px;
 		}
 
@@ -90,8 +90,8 @@
 			width: 51px;
 			height: 51px;
 			position: absolute;
-		    top: -5px;
-		    left: -5px;
+		    top: -2px;
+		    left: -3px;
 		}
 
 
@@ -344,6 +344,8 @@ function fnGetVideo()
 
 				var reply	 = '';
 
+				var zid	     = 0;
+
 				// var 
 
 				for( i=0;i<len;i++)
@@ -380,42 +382,39 @@ function fnGetVideo()
 					}
 
 					//likes? zan = 0none 1like 2dislike
+					zid = res.data.comment[i].id;
+
 					if( res.data.comment[i].zan == 0 )
 					{
-						likes = "<i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'> <img src='./images/uz0.png' /> </i> <span id='no2_"+res.data.comment[i].id+"'>" 
+						likes = "<i class='iconfont' onclick='fnlike( 2, "+zid+" );'> <img src='./images/uz0.png' /> </i> <span id='no2_"+zid+"'>" 
 								 + res.data.comment[i].step + "</span>\
 								 &nbsp;&nbsp;\
-							 	 <i class='iconfont'> <img src='./images/uz1.png' /> </i> <span id='no1_"+res.data.comment[i].id+"'>" + res.data.comment[i].like + "</span>" ;
+							 	 <i class='iconfont' onclick='fnlike( 1, "+zid+" );'> <img src='./images/uz1.png' /> </i> <span id='no1_"+zid+"'>" + res.data.comment[i].like + "</span>" ;
 					}
 					else if( res.data.comment[i].zan == 1 )
 					{
-						likes = "<i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'> <img src='./images/uz0.png' /> </i> <span id='no2_"+res.data.comment[i].id+"'>" 
+						likes = "<i class='iconfont' onclick='fnlike( 2, "+zid+" );'> <img src='./images/uz0.png' /> </i> <span id='no2_"+zid+"'>" 
 								 + res.data.comment[i].step + "</span>\
 								 &nbsp;&nbsp;\
-							 	 <i class='iconfont'> <img src='./images/z1.png' /> </i> <span id='no1_"+res.data.comment[i].id+"'>" + res.data.comment[i].like + "</span>" ;
+							 	 <i class='iconfont'> <img src='./images/z1.png' /> </i> <span id='no1_"+zid+"'>" + res.data.comment[i].like + "</span>" ;
 					}
 					else if( res.data.comment[i].zan == 2 )
 					{
-						likes = "<i class='iconfont'> <img src='./images/z0.png' /> </i> <span id='no2_"+res.data.comment[i].id+"'>" + res.data.comment[i].step + "</span>\
+						likes = "<i class='iconfont'> <img src='./images/z0.png' /> </i> <span id='no2_"+zid+"'>" + res.data.comment[i].step + "</span>\
 								 &nbsp;&nbsp;\
-							 	 <i class='iconfont' onclick='fnlike( 1, "+res.data.comment[i].id+" );'> <img src='./images/uz1.png' /> </i> <span id='no1_"+res.data.comment[i].id+"'>" 
+							 	 <i class='iconfont' onclick='fnlike( 1, "+zid+" );'> <img src='./images/uz1.png' /> </i> <span id='no1_"+zid+"'>" 
 							 	 + res.data.comment[i].like + "</span>" ;
 					}
 					else
 					{
-						likes = "<i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'> <img src='./images/z0.png' /> </i> <span id='no2_"+res.data.comment[i].id+"'>" 
+						likes = "<i class='iconfont' onclick='fnlike( 2, "+zid+" );'> <img src='./images/z0.png' /> </i> <span id='no2_"+zid+"'>" 
 								 + res.data.comment[i].step + "</span>\
 								 &nbsp;&nbsp;\
-							 	 <i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'> <img src='./images/z1.png' /> </i> <span id='no1_"+res.data.comment[i].id+"'>" 
+							 	 <i class='iconfont' onclick='fnlike( 2, "+zid+" );'> <img src='./images/z1.png' /> </i> <span id='no1_"+zid+"'>" 
 							 	 + res.data.comment[i].like + "</span>" ;
 					}
 
 
-					likes = "<i class='iconfont' onclick='fnlike( 2, "+res.data.comment[i].id+" );'> <img src='./images/z0.png' /> </i> <span id='no2_"+res.data.comment[i].id+"'>" 
-							 + res.data.comment[i].step + "</span>\
-							 &nbsp;&nbsp;\
-						 	 <i class='iconfont' onclick='fnlike( 1, "+res.data.comment[i].id+" );'> <img src='./images/z1.png' /> </i> <span id='no1_"+res.data.comment[i].id+"'>" 
-						 	 + res.data.comment[i].like + "</span>" ;
 
 					
 
@@ -483,7 +482,7 @@ function fnGetVideo()
 
 
 /**
- * [fnlike like or unlike]
+ * [fnlike like or dislike]
  * @param  {[type]} type [like type]
  * @param  {[type]} c_id [comment id]
  * @return bool    
@@ -518,6 +517,7 @@ function fnlike( type, c_id )
 			{
 				if( type == 1 )
 				{
+					//like
 					$('#no1_' + c_id ).html( parseInt($('#no1_' + c_id).html()) + 1 );
 
 					if( parseInt($('#no2_' + c_id).html()) > 0 )
@@ -527,6 +527,7 @@ function fnlike( type, c_id )
 				}
 				else
 				{
+					//dislike
 					$('#no2_' + c_id ).html( parseInt($('#no2_' + c_id).html()) + 1 );
 
 					if( parseInt($('#no1_' + c_id).html()) > 0 )
