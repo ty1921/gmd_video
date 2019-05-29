@@ -190,7 +190,7 @@
 <!-- tips -->
 	<div id="tips" class="clearfix" style="display:none ;position: fixed;left: 0;top: 0;width: 100%;">
 		<div class="col-md-12 column">
-			<div class="alert alert-danger alert-dismissable">
+			<div id='tips_content' class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true" onclick="$('#tips').hide();">×</button>
 				<div id="tips_text"> </div>
 			</div>
@@ -212,7 +212,7 @@
 <script type="text/javascript">
 
 //comm config ----------------------------------------------
-var host 	  = 'http://192.168.15.251/';
+var host 	  = 'http://192.168.15.248/';
 
 var video_id  = 0;
 
@@ -492,7 +492,7 @@ function fnGetVideo()
 						reply = "<div class='form-inline' style='word-break: break-all;color: #BBBBBB;font-weight: 600;font-size: 13px;'>\
 						 			<span style='display: block;width: 3px;height: 100%;background-color: #22b322;margin-right: 3px;'>&nbsp;</span> "+yy[6]+"\
 						 		 </div>\
-								 <div style='word-break: break-all;'>"+res.data.comment[i].data[0].content+"</div>";
+								 <div style='word-break: break-all;width: 95%;'>"+res.data.comment[i].data[0].content+"</div>";
 					}
 					else
 					{
@@ -657,6 +657,10 @@ function fnComment()
 		{	
 			if( res.code == 1 )
 			{
+				$('#tips_content').removeClass('alert-danger');
+				
+				$('#tips_content').addClass('alert-success');
+				
 				fnTips( yy[12] );
 			}
 			else
@@ -715,6 +719,10 @@ function fnTips( msg )
         	$('#tips').toggle();
 
         	window.clearInterval( timer );
+        	
+        	$('#tips_content').addClass('alert-danger');
+
+			$('#tips_content').removeClass('alert-success');
         }
 
         num--;
