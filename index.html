@@ -2,8 +2,9 @@
  *
  * [GMD VIDEO PAGE]
  * @author      <[ty1921@gmail.com]>
- * @version     0.1
+ * @version     0.6
  * @create      2019-4-24 10:45:59
+ * @update      2019-5-14 17:53:07  for multi language
  * 
  -->
 
@@ -116,8 +117,6 @@
 			/*line-height: 120%;*/
 		}
 
-
-
 		.clearfix:befor, .clearfix:after{
 		    content:'';
 		    display:block;
@@ -145,8 +144,6 @@
 			height: 16px;
 		}
 
-		/*likes*/
-
 
 	</style>
 
@@ -164,7 +161,7 @@
 
 		<div id="video" class="col-md-12 column" style="border:0px solid red;">
 			<!-- <iframe src="//player.bilibili.com/player.html?aid=27284475&cid=47042097&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe> -->
-			<div style="width: 100%;height:50px;padding-top: 30%;text-align: center;">loading...</div>
+			<div id="tips_video" style="width: 100%;height:50px;padding-top: 30%;text-align: center;"> </div>
 		</div>
 	</div>
 
@@ -181,8 +178,8 @@
 	<!-- comment -->
 	<div class="row clearfix" style="margin: 15px 0;">
 		<div class="col-md-12 column" style="border:0px solid green;text-align: right;">
-			<textarea id="msg" class="form-control" placeholder="请输入评论..." rows="3"></textarea>
-			<button class="btn btn-danger" style="margin:auto;margin-top: 10px;" onclick="fnComment();"> 提交 </button>
+			<textarea id="msg" class="form-control" placeholder="" rows="3"></textarea>
+			<button class="btn btn-danger" style="margin:auto;margin-top: 10px;" onclick="fnComment();">   </button>
 		</div>
 	</div>
 	
@@ -195,7 +192,7 @@
 		<div class="col-md-12 column">
 			<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true" onclick="$('#tips').hide();">×</button>
-				<div id="tips_text">加载中，请稍候...</div>
+				<div id="tips_text"> </div>
 			</div>
 		</div>
 	</div>
@@ -236,10 +233,85 @@ var frame_icon = fnGet( 'iconframe' );
 
 var language   = fnGet( 'language' );
 
+var yy = new Array();
+
+if( language == 2 )
+{
+	yy[0] = '请输入评论...';
+	yy[1] = '加载中，请稍候...';
+	yy[2] = '提交';
+	yy[3] = '用户注册失败，请稍后重试！';
+	yy[4] = '网络连接失败，请稍后重试！';
+	yy[5] = '置顶';
+	yy[6] = '作者';
+	yy[7] = '视频请求失败，请稍后重试！';
+	yy[8] = '网络连接失败，请稍后重试！';
+	yy[9] = '请求失败，请稍后重试！';
+	yy[10] = '网络连接失败，请稍后重试！';
+	yy[11] = '太短啦，请留言3个字以上哦！';
+	yy[12] = '留言成功，请等待管理员审核！';
+	yy[13] = '留言失败，请稍后重试！';
+	yy[14] = '网络连接失败，请稍后重试！';
+	yy[15] = '关闭';
+}
+else if( language == 14 || language == 15 )
+{
+	yy[0] = '請輸入評論...';
+	yy[1] = '加載中，請稍候...';
+	yy[2] = '提交';
+	yy[3] = '用戶註冊失敗，請稍後重試！';
+	yy[4] = '網絡連接失敗，請稍後重試！';
+	yy[5] = '置頂';
+	yy[6] = 'GM';
+	yy[7] = '視頻請求失敗，請稍後重試！';
+	yy[8] = '網絡連接失敗，請稍後重試！';
+	yy[9] = '請求失敗，請稍後重試！';
+	yy[10] = '網絡連接失敗，請稍後重試！';
+	yy[11] = '太短啦，請留言3個字以上哦！';
+	yy[12] = '留言成功，請等待管理員審核！';
+	yy[13] = '留言失敗，請稍後重試！';
+	yy[14] = '網絡連接失敗，請稍後重試！';
+	yy[15] = '關閉';
+}
+else
+{
+	yy[0] = 'Please enter some words...';
+	yy[1] = 'Loading, please wait ...';
+	yy[2] = 'Submit';
+	yy[3] = 'User registration failed, please try again later!';
+	yy[4] = 'The network connection failed. Please try again later!';
+	yy[5] = 'Topping';
+	yy[6] = 'GM';
+	yy[7] = 'Video request failed, please try again later!';
+	yy[8] = 'Connection failed. Please try again later!';
+	yy[9] = 'Connection failed. Please try again later!';
+	yy[10] = 'Connection failed. Please try again later!';
+	yy[11] = 'Please leave more than 3 words!';
+	yy[12] = 'Successful, please wait for the administrator to review!';
+	yy[13] = 'Failed, please try again later!';
+	yy[14] = 'Connection failed. Please try again later!';
+	yy[15] = 'Close';
+}
+
+
+
+
 
 
 //when document ready
 $(function(){
+
+	//0 multi language
+	$('#msg').attr( 'placeholder', yy[0] );
+
+	$('.btn-danger').html( yy[2] );
+
+	$('#tips_text').html( yy[1] );
+
+	$('#tips_video').html( yy[1] );
+	
+
+
 
 	//1 get localStorage parameter ------------------------------
 	var gmd_user = window.localStorage.getItem('gmd_user') || '';
@@ -249,14 +321,13 @@ $(function(){
 		//register
 		if( region && level && difficult && uid )
 		{
-			fnReg()
+			fnReg();
 		}
 	}
 
 	//2 list query api -----------------------------------
 	fnGetVideo();
 
-	
 });
 
 
@@ -293,14 +364,14 @@ function fnReg()
 			{
 				console.log( res );
 
-				fnTips( '用户注册失败，请稍后重试！');
+				fnTips( yy[3]);
 			}
 		},
 		 error: function(XMLHttpRequest, textStatus, errorThrown) {
 		    console.log(XMLHttpRequest);
 			console.log(errorThrown);
 			console.log(textStatus);
-			fnTips( '网络连接失败，请稍后重试！');
+			fnTips( yy[4] );
 		}
 	});
 }
@@ -377,7 +448,7 @@ function fnGetVideo()
 					//top?
 					if( res.data.comment[i].roof )
 					{
-						tops = "<span class='top'>置顶</span>";
+						tops = "<span class='top'>"+yy[5]+"</span>";
 					}
 					else
 					{
@@ -387,34 +458,26 @@ function fnGetVideo()
 					//likes? zan = 0none 1like 2dislike
 					zid = res.data.comment[i].id;
 
-					if( res.data.comment[i].zan == 0 )
+					if( res.data.comment[i].zan == 1 )
 					{
-						likes = "<i class='iconfont' onclick='fnlike( 2, "+zid+" );'> <img src='./images/uz0.png' /> </i> <span id='no2_"+zid+"'>" 
-								 + res.data.comment[i].step + "</span>\
-								 &nbsp;&nbsp;\
-							 	 <i class='iconfont' onclick='fnlike( 1, "+zid+" );'> <img src='./images/uz1.png' /> </i> <span id='no1_"+zid+"'>" + res.data.comment[i].like + "</span>" ;
-					}
-					else if( res.data.comment[i].zan == 1 )
-					{
-						likes = "<i class='iconfont' onclick='fnlike( 2, "+zid+" );'> <img src='./images/uz0.png' /> </i> <span id='no2_"+zid+"'>" 
-								 + res.data.comment[i].step + "</span>\
-								 &nbsp;&nbsp;\
-							 	 <i class='iconfont'> <img src='./images/z1.png' /> </i> <span id='no1_"+zid+"'>" + res.data.comment[i].like + "</span>" ;
+						likes = "<i> <img id='z0"+zid+"' onclick='fnlike( 2, "+zid+" );' src='./images/uz0.png' /> </i> \
+									<span id='no2_"+zid+"'>" + res.data.comment[i].step + "</span> &nbsp;&nbsp;\
+							 	 <i> <img id='z1"+zid+"' src='./images/z1.png' /> </i> \
+							 	 	<span id='no1_"+zid+"'>" + res.data.comment[i].like + "</span>" ;
 					}
 					else if( res.data.comment[i].zan == 2 )
 					{
-						likes = "<i class='iconfont'> <img src='./images/z0.png' /> </i> <span id='no2_"+zid+"'>" + res.data.comment[i].step + "</span>\
-								 &nbsp;&nbsp;\
-							 	 <i class='iconfont' onclick='fnlike( 1, "+zid+" );'> <img src='./images/uz1.png' /> </i> <span id='no1_"+zid+"'>" 
-							 	 + res.data.comment[i].like + "</span>" ;
+						likes = "<i> <img id='z0"+zid+"' src='./images/z0.png' /> </i> \
+									<span id='no2_"+zid+"'>" + res.data.comment[i].step + "</span> &nbsp;&nbsp;\
+							 	 <i> <img id='z1"+zid+"' onclick='fnlike( 1, "+zid+" );' src='./images/uz1.png' /> </i> \
+							 	 	<span id='no1_"+zid+"'>" + res.data.comment[i].like + "</span>" ;
 					}
 					else
 					{
-						likes = "<i class='iconfont' onclick='fnlike( 2, "+zid+" );'> <img src='./images/z0.png' /> </i> <span id='no2_"+zid+"'>" 
-								 + res.data.comment[i].step + "</span>\
-								 &nbsp;&nbsp;\
-							 	 <i class='iconfont' onclick='fnlike( 2, "+zid+" );'> <img src='./images/z1.png' /> </i> <span id='no1_"+zid+"'>" 
-							 	 + res.data.comment[i].like + "</span>" ;
+						likes = "<i> <img id='z0"+zid+"' onclick='fnlike( 2, "+zid+" );' src='./images/uz0.png' /> </i> \
+									<span id='no2_"+zid+"'>" + res.data.comment[i].step + "</span> &nbsp;&nbsp;\
+							 	 <i> <img id='z1"+zid+"' onclick='fnlike( 1, "+zid+" );' src='./images/uz1.png' /> </i> \
+							 	 	<span id='no1_"+zid+"'>" + res.data.comment[i].like + "</span>" ;
 					}
 
 
@@ -427,7 +490,7 @@ function fnGetVideo()
 					if( res.data.comment[i].data[0] )
 					{
 						reply = "<div class='form-inline' style='word-break: break-all;color: #BBBBBB;font-weight: 600;font-size: 13px;'>\
-						 			<span style='display: block;width: 3px;height: 100%;background-color: #22b322;margin-right: 3px;'>&nbsp;</span> 作者\
+						 			<span style='display: block;width: 3px;height: 100%;background-color: #22b322;margin-right: 3px;'>&nbsp;</span> "+yy[6]+"\
 						 		 </div>\
 								 <div style='word-break: break-all;'>"+res.data.comment[i].data[0].content+"</div>";
 					}
@@ -471,14 +534,14 @@ function fnGetVideo()
 			{
 				console.log( res );
 
-				fnTips( '视频请求失败，请稍后重试！');
+				fnTips( yy[7] );
 			}
 		},
 		 error: function(XMLHttpRequest, textStatus, errorThrown) {
 		    console.log(XMLHttpRequest);
 			console.log(errorThrown);
 			console.log(textStatus);
-			fnTips( '网络连接失败，请稍后重试！');
+			fnTips( yy[8] );
 		}
 	});
 }
@@ -518,6 +581,11 @@ function fnlike( type, c_id )
 		{	
 			if( res.code == 1 )
 			{
+				"<i> <img id='z0"+zid+"' onclick='fnlike( 2, "+zid+" );' src='./images/uz0.png' /> </i> \
+									<span id='no2_"+zid+"'>" + res.data.comment[i].step + "</span> &nbsp;&nbsp;\
+							 	 <i> <img id='z1"+zid+"' onclick='fnlike( 1, "+zid+" );' src='./images/uz1.png' /> </i> \
+							 	 	<span id='no1_"+zid+"'>" + res.data.comment[i].like + "</span>" ;
+							 	 	
 				if( type == 1 )
 				{
 					//like
@@ -543,14 +611,14 @@ function fnlike( type, c_id )
 			{
 				console.log( res );
 
-				fnTips( '请求失败，请稍后重试！');
+				fnTips( yy[9] );
 			}
 		},
 		 error: function(XMLHttpRequest, textStatus, errorThrown) {
 		    console.log(XMLHttpRequest);
 			console.log(errorThrown);
 			console.log(textStatus);
-			fnTips( '网络连接失败，请稍后重试！');
+			fnTips( yy[10] );
 		}
 	});
 
@@ -569,7 +637,7 @@ function fnComment()
 
 	if( msg.length < 3 )
 	{
-		alert('太短啦，请留言3个字以上哦！');
+		alert( yy[11] );
 
 		return;
 	}
@@ -589,7 +657,7 @@ function fnComment()
 		{	
 			if( res.code == 1 )
 			{
-				fnTips( '留言成功，请等待管理员审核！');
+				fnTips( yy[12] );
 			}
 			else
 			{
@@ -597,14 +665,14 @@ function fnComment()
 
 				$('#tips').show();
 						
-				$('#tips_text').html( '留言失败，请稍后重试！');
+				$('#tips_text').html( yy[13] );
 			}
 		},
 		 error: function(XMLHttpRequest, textStatus, errorThrown) {
 		    console.log(XMLHttpRequest);
 			console.log(errorThrown);
 			console.log(textStatus);
-			fnTips( '网络连接失败，请稍后重试！');
+			fnTips( yy[14] );
 		}
 	});
 
@@ -634,7 +702,7 @@ function fnTips( msg )
 { 
 	$('#tips').toggle();
 
-    $('#tips_text').html( "<b>" + msg + "</b><br>关闭（<span id='cnt' style='color:grey;'>5</span>）" );
+    $('#tips_text').html( "<b>" + msg + "</b><br>"+yy[15]+"（<span id='cnt' style='color:grey;'>5</span>）" );
 
     var num = 4;
 
